@@ -7,6 +7,20 @@
     @if(\App\Models\Pengaturan::getValue('app_favicon'))
         <link rel="icon" type="image/x-icon" href="{{ asset(\App\Models\Pengaturan::getValue('app_favicon')) }}">
     @endif
+
+    <!-- PWA Setup -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="/pwa-icon.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('PWA Service Worker Registered!'))
+                    .catch(err => console.error('PWA Registration Failed!', err));
+            });
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">

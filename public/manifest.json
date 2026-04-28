@@ -1,0 +1,17 @@
+{
+  "name": "Sihati - Info Harga Pasar",
+  "short_name": "Sihati",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "description": "Informasi Harga Pasar Komoditi Pertanian & Hortikultura",
+  "icons": [
+    {
+      "src": "/pwa-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
