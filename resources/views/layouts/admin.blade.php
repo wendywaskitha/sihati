@@ -197,6 +197,9 @@
             <li class="{{ request()->routeIs('admin.pengaturan.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.pengaturan.index') }}"><i class="fa-solid fa-gears"></i> Pengaturan</a>
             </li>
+            <li class="{{ request()->routeIs('admin.backup.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.backup.index') }}"><i class="fa-solid fa-database"></i> Backup & Restore</a>
+            </li>
             @endif
         </ul>
     </div>

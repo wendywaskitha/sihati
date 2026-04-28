@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Informasi Harga Pasar Komoditi Pertanian</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Informasi Harga Pasar">
+    <meta property="og:description" content="Pantau fluktuasi harga komoditi pertanian dan hortikultura secara real-time.">
+    <meta property="og:image" content="{{ asset('pwa-icon.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Informasi Harga Pasar">
+    <meta property="twitter:description" content="Pantau fluktuasi harga komoditi pertanian dan hortikultura secara real-time.">
+    <meta property="twitter:image" content="{{ asset('pwa-icon.png') }}">
     @if(\App\Models\Pengaturan::getValue('app_favicon'))
         <link rel="icon" type="image/x-icon" href="{{ asset(\App\Models\Pengaturan::getValue('app_favicon')) }}">
     @endif

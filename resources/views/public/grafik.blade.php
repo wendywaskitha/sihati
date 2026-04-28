@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sihati - Grafik Perbandingan</title>
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Grafik Perbandingan Harga">
+    <meta property="og:description" content="Analisis tren dan komparasi grafik fluktuasi harga komoditi pangan secara transparan.">
+    <meta property="og:image" content="{{ asset('pwa-icon.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Grafik Perbandingan Harga">
+    <meta property="twitter:description" content="Analisis tren dan komparasi grafik fluktuasi harga komoditi pangan secara transparan.">
+    <meta property="twitter:image" content="{{ asset('pwa-icon.png') }}">
+
     <!-- PWA Setup -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#667eea">

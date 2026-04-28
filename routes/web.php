@@ -170,6 +170,12 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pengaturan', [\App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('pengaturan.index');
             Route::post('/pengaturan', [\App\Http\Controllers\Admin\PengaturanController::class, 'update'])->name('pengaturan.update');
+
+            Route::get('/backup', [\App\Http\Controllers\Admin\BackupController::class, 'index'])->name('backup.index');
+            Route::post('/backup/export', [\App\Http\Controllers\Admin\BackupController::class, 'backup'])->name('backup.export');
+            Route::post('/backup/restore', [\App\Http\Controllers\Admin\BackupController::class, 'restore'])->name('backup.restore');
+            Route::post('/backup/clear-draft', [\App\Http\Controllers\Admin\BackupController::class, 'clearDraft'])->name('backup.clear_draft');
+            Route::post('/backup/clear-approved', [\App\Http\Controllers\Admin\BackupController::class, 'clearApproved'])->name('backup.clear_approved');
         });
     });
 });

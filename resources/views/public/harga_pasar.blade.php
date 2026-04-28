@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sihati - Harga per Pasar</title>
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Harga Komoditi per Pasar">
+    <meta property="og:description" content="Rincian harga pangan ter-update berdasarkan cakupan wilayah pasar tradisional setempat.">
+    <meta property="og:image" content="{{ asset('pwa-icon.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ \App\Models\Pengaturan::getValue('app_name', 'Sihati') }} - Harga Komoditi per Pasar">
+    <meta property="twitter:description" content="Rincian harga pangan ter-update berdasarkan cakupan wilayah pasar tradisional setempat.">
+    <meta property="twitter:image" content="{{ asset('pwa-icon.png') }}">
+
     <!-- PWA Setup -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#667eea">
