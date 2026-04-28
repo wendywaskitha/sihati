@@ -38,7 +38,18 @@
             background: #ffffff;
             box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
             z-index: 1000;
-            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        #sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        #sidebar::-webkit-scrollbar-track {
+            background: #f8f9fa;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
         }
 
         .sidebar-header {

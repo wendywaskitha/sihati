@@ -63,9 +63,14 @@
 <div class="row g-3 mb-3">
     <!-- Chart Widget 1: Tren Harga -->
     <div class="col-lg-6">
-        <div class="card card-premium p-3 h-100">
-            <h6 class="fw-bold text-dark mb-2" style="font-size: 0.9rem;"><i class="fa-solid fa-chart-line text-primary me-2"></i> Tren Harga Komoditas (30 Hari)</h6>
-            <div style="position: relative; height: 220px; width: 100%;">
+        <div class="card card-premium p-3 h-100" id="trendChartWrapper">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fw-bold text-dark mb-0" style="font-size: 0.9rem;"><i class="fa-solid fa-chart-line text-primary me-2"></i> Tren Harga Komoditas (30 Hari)</h6>
+                <button class="btn btn-sm btn-light text-primary rounded-pill px-2 py-0 fw-bold" style="font-size: 0.75rem;" onclick="toggleTrendFullscreen()">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+            <div style="position: relative; height: 220px; width: 100%;" id="trendCanvasWrapper">
                 <canvas id="adminTrendChart"></canvas>
             </div>
         </div>
@@ -139,7 +144,39 @@
             @endif
         </div>
     </div>
-</div>
+<style>
+    #trendChartWrapper:fullscreen {
+        background: #ffffff !important;
+        padding: 30px !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    #trendChartWrapper:fullscreen #trendCanvasWrapper {
+        height: 85% !important;
+    }
+</style>
+
+<script>
+    function toggleTrendFullscreen() {
+        const elem = document.getElementById('trendChartWrapper');
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -197,17 +234,45 @@
         });
 
         // 3. Line Chart: Tren Harga Komoditas
+        const isMobile = window.innerWidth < 768;
+        const trendDatasets = {!! json_encode($trend_datasets) !!}.map(ds => {
+            return {
+                ...ds,
+                borderWidth: isMobile ? 1.5 : 2,
+                pointRadius: isMobile ? 0 : 2,
+                pointHoverRadius: 4
+            };
+        });
+
         const ctxLine = document.getElementById('adminTrendChart').getContext('2d');
         new Chart(ctxLine, {
             type: 'line',
             data: {
                 labels: {!! json_encode($trend_labels) !!},
-                datasets: {!! json_encode($trend_datasets) !!}
+                datasets: trendDatasets
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
+                    x: {
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: isMobile ? 4 : 8,
+                            maxRotation: 0,
+                            minRotation: 0,
+                            callback: function(val, index) {
+                                let label = this.getLabelForValue(val);
+                                if (label && label.length >= 10) {
+                                    const parts = label.split('-');
+                                    if (parts.length === 3) {
+                                        return parts[2] + '/' + parts[1];
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    },
                     y: {
                         ticks: {
                             callback: function(value) { return 'Rp ' + value.toLocaleString('id-ID'); }
@@ -215,6 +280,15 @@
                     }
                 },
                 plugins: {
+                    legend: {
+                        display: !isMobile,
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8,
+                            padding: 8
+                        }
+                    },
                     tooltip: {
                         callbacks: {
                             label: function(context) { return context.dataset.label + ': Rp ' + context.parsed.y.toLocaleString('id-ID'); }
@@ -248,10 +322,28 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                indexAxis: isMobile ? 'y' : 'x',
                 scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value) { 
+                                if (isMobile) {
+                                    return 'Rp ' + value.toLocaleString('id-ID');
+                                }
+                                let label = this.getLabelForValue(value);
+                                return label.length > 15 ? label.substring(0, 15) + '...' : label;
+                            }
+                        }
+                    },
                     y: {
                         ticks: {
-                            callback: function(value) { return 'Rp ' + value.toLocaleString('id-ID'); }
+                            callback: function(value) { 
+                                if (!isMobile) {
+                                    return 'Rp ' + value.toLocaleString('id-ID');
+                                }
+                                let label = this.getLabelForValue(value);
+                                return label.length > 15 ? label.substring(0, 15) + '...' : label;
+                            }
                         }
                     }
                 }
