@@ -27,7 +27,7 @@ class LaporanController extends Controller
             $query->where('komoditas_id', $request->komoditas_id);
         }
 
-        $hargas = $query->with(['pasar', 'komoditas'])->orderBy('tanggal', 'desc')->get();
+        $hargas = $query->with(['pasar', 'komoditas'])->orderBy('tanggal', 'desc')->paginate(15)->withQueryString();
         $pasars = Pasar::all();
         $komoditas = Komoditas::all();
 

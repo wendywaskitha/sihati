@@ -67,7 +67,7 @@
             <tbody>
                 @forelse($hargas as $index => $harga)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $hargas->firstItem() + $index }}</td>
                     <td>{{ \Carbon\Carbon::parse($harga->tanggal)->format('d/m/Y') }}</td>
                     <td class="fw-bold text-dark">{{ $harga->komoditas->nama ?? '-' }} / {{ $harga->komoditas->satuan ?? 'Kg' }}</td>
                     <td>{{ $harga->pasar->nama ?? '-' }}</td>
@@ -82,6 +82,9 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+    <div class="mt-4">
+        {{ $hargas->links() }}
     </div>
 </div>
 @endsection
