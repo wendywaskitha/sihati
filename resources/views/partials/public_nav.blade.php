@@ -44,9 +44,6 @@
                     <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill px-4 fw-bold">
                         <i class="fa-solid fa-right-to-bracket me-1"></i> Masuk
                     </a>
-                    <a href="{{ route('register') }}" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
-                        <i class="fa-solid fa-user-plus me-1"></i> Daftar
-                    </a>
                 @endauth
             </div>
         </div>
